@@ -109,15 +109,13 @@ class GraphiteClient(object):
             tmp_prefix = "%s." % prefix
 
         if system_name is None:
-            hostname = socket.getfqdn()
-            if fqdn_squash:
-                tmp_sname = '%s.' % hostname.replace('.', '_')
-            else:
-                tmp_sname = '%s.' % hostname
+            tmp_sname = '%s.' % socket.getfqdn()
         elif system_name == '':
             tmp_sname = ''
         else:
             tmp_sname = '%s.' % system_name
+        if fqdn_squash:
+            tmp_sname = tmp_sname.replace('.', '_')
 
         if group is None:
             tmp_group = ''
